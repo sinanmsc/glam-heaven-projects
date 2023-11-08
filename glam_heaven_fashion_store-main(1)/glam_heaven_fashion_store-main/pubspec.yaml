@@ -1,0 +1,43 @@
+name: glam_heaven_fashion_store
+description: A new Flutter project of fasion store.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.6 <4.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.6
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.0
+  carousel_slider: ^4.2.1
+  cached_network_image: ^3.3.0
+  animated_notch_bottom_bar: ^1.0.0
+  swipeable_button_view: ^0.0.2
+  flutter_rating_stars: ^1.0.3+4
+  flutter_rating_bar: ^4.0.1
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/
+  fonts:
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/Comfortaa-VariableFont_wght.ttf
+    - family: sixcaps
+      fonts:
+        - asset: assets/fonts/Six_Caps(1)/SixCaps-Regular.ttf   
+    - family: inter
+      fonts:
+        - asset: assets/fonts/Inter/static/Inter-SemiBold.ttf
+          # weight: 900

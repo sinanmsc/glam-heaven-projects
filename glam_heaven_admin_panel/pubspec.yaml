@@ -1,0 +1,27 @@
+name: glam_heaven_admin_panel
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  cloud_firestore: ^4.12.1
+  firebase_core: ^2.20.0
+  firebase_storage: ^11.4.0
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.4
+  image_picker: ^1.0.4
+  cached_network_image: ^3.3.0
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - asset/
