@@ -104,8 +104,7 @@ class ProductsScreen extends ConsumerWidget {
                     children: [
                       const Text('Category'),
                       SizedBox(width: context.width(15)),
-                      DropdownButton<String>(
-                        
+                      DropdownButton<String>(                        
                         value: ref.watch(categoryProvider),
                         icon: const Icon(Icons.arrow_drop_down_sharp),
                         underline: const SizedBox(),

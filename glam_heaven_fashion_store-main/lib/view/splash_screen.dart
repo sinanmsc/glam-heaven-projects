@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glam_heaven_fashion_store/view/get_start.dart';
+import 'package:glam_heaven_fashion_store/view/signin/auth_checker.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => GetStart(),
+          builder: (context) => const AuthChecker(),
         ));
   }
 

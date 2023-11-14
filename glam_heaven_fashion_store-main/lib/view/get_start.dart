@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/swipeable_button.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
 import 'package:glam_heaven_fashion_store/provider/getstart_provider.dart';
-import 'package:glam_heaven_fashion_store/view/signin/login.dart';
+import 'package:glam_heaven_fashion_store/view/signin/login_signup.dart';
 
 class GetStart extends ConsumerWidget {
   const GetStart({super.key});
@@ -100,7 +100,7 @@ class GetStart extends ConsumerWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Login(),
+                  builder: (context) =>  AuthPageview(),
                 ),
               );
               ref.read(isFinished.notifier).state =

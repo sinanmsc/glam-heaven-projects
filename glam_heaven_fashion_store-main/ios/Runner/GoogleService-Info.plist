@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBFt_tqKmzDLZSi0WzObj_vGo1b34QQb_U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>542525691975</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.glamHeavenFashionStore</string>
+	<key>PROJECT_ID</key>
+	<string>glamheaven-ecom</string>
+	<key>STORAGE_BUCKET</key>
+	<string>glamheaven-ecom.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:542525691975:ios:113c1f3d9904f2245f3962</string>
+</dict>
+</plist>

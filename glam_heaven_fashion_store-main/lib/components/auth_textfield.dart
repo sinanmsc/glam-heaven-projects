@@ -8,9 +8,11 @@ class AuthTextField extends ConsumerWidget {
   final bool isThisForPassword;
   final void Function()? suffixIconOnpressed;
   final bool obscureText;
+ final TextEditingController controller;
   const AuthTextField({
     super.key,
     required this.hintText,
+    required this.controller,
     this.isThisForPassword = false,
     this.suffixIconOnpressed,
     required this.obscureText,
@@ -18,6 +20,7 @@ class AuthTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(

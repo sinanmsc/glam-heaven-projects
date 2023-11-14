@@ -1,14 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/auth_textfield.dart';
+import 'package:glam_heaven_fashion_store/components/home_bottomnavigation.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
-import 'package:glam_heaven_fashion_store/provider/auth_provider.dart';
-import 'package:glam_heaven_fashion_store/view/signin/login.dart';
+import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
+import 'package:glam_heaven_fashion_store/provider/auth_ui_provider.dart';
 
 class Signup extends ConsumerWidget {
-  const Signup({super.key});
-
+  final void Function()? ontapToLoginpage;
+  Signup({super.key, required this.ontapToLoginpage});
+  final name = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final confirmPassword = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -69,14 +76,17 @@ class Signup extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AuthTextField(
-                            hintText: 'First Name', obscureText: false),
+                            controller: name,
+                            hintText: 'Last Name',
+                            obscureText: false),
                         SizedBox(height: context.width(15)),
                         AuthTextField(
-                            hintText: 'Last Name', obscureText: false),
-                        SizedBox(height: context.width(15)),
-                        AuthTextField(hintText: 'Email', obscureText: false),
+                            controller: email,
+                            hintText: 'Email',
+                            obscureText: false),
                         SizedBox(height: context.width(15)),
                         AuthTextField(
+                          controller: password,
                           hintText: 'Password',
                           isThisForPassword: true,
                           obscureText: ref.watch(sigupEyeProvider),
@@ -87,6 +97,7 @@ class Signup extends ConsumerWidget {
                         ),
                         SizedBox(height: context.width(15)),
                         AuthTextField(
+                          controller: confirmPassword,
                           hintText: 'Confirm Password',
                           isThisForPassword: true,
                           obscureText: ref.watch(signupConfirmEyeProvider),
@@ -133,22 +144,55 @@ class Signup extends ConsumerWidget {
                         SizedBox(
                           height: context.height(61),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.sizeOf(context).width,
-                          height: context.width(45),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: const Color(0xFF1B1B56),
-                          ),
-                          margin: EdgeInsets.only(bottom: context.width(5)),
-                          child: Text(
-                            'Sign up',
-                            style: TextStyle(
-                              fontFamily: 'inter',
-                              fontWeight: FontWeight.w900,
-                              fontSize: context.width(15),
-                              color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BottomNavi(),
+                                ));
+                          },
+                          child: InkWell(
+                            onTap: () async {
+                              if (name.text.isEmpty &&
+                                  confirmPassword.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'Please fill the blank fields')));
+                              } else {
+                                try {
+                                  await ref
+                                      .read(authServiceProvider)
+                                      .signup(email.text, password.text)
+                                      .then((value) => Navigator.pop(context));
+                                } on FirebaseAuthException catch (e) {
+                                  if (context.mounted) {
+                                    log('$e');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('${e.message}')));
+                                  }
+                                }
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.sizeOf(context).width,
+                              height: context.width(45),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: const Color(0xFF1B1B56),
+                              ),
+                              margin: EdgeInsets.only(bottom: context.width(5)),
+                              child: Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  fontFamily: 'inter',
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: context.width(15),
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -163,11 +207,7 @@ class Signup extends ConsumerWidget {
                               ),
                             ),
                             InkWell(
-                              onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Login(),
-                                  )),
+                              onTap: ontapToLoginpage,
                               child: Text(
                                 'Login',
                                 style: TextStyle(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542525691975",
+    "project_id": "glamheaven-ecom",
+    "storage_bucket": "glamheaven-ecom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542525691975:android:477f588efaf115c85f3962",
+        "android_client_info": {
+          "package_name": "com.example.glam_heaven_fashion_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABJVuiF9JK1ezmHoxjn-Kv28WmtPY0rvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

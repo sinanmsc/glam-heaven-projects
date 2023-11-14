@@ -1,13 +1,20 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/auth_textfield.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
-import 'package:glam_heaven_fashion_store/provider/auth_provider.dart';
-import 'package:glam_heaven_fashion_store/view/signin/signup.dart';
+import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
+import 'package:glam_heaven_fashion_store/provider/auth_ui_provider.dart';
 
 class Login extends ConsumerWidget {
-  const Login({super.key});
+  final void Function()? ontapToSignupage;
+  Login({
+    super.key,
+    required this.ontapToSignupage,
+  });
+
+  final email = TextEditingController();
+  final password = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +26,7 @@ class Login extends ConsumerWidget {
             Stack(
               children: [
                 Container(
-                  alignment: Alignment(0.6, -0.5),
+                  alignment: const Alignment(0.6, -0.5),
                   height: context.height(250),
                   width: MediaQuery.sizeOf(context).width,
                   decoration: const BoxDecoration(
@@ -89,10 +96,13 @@ class Login extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const AuthTextField(
-                            hintText: 'Email/Username', obscureText: false),
+                        AuthTextField(
+                            controller: email,
+                            hintText: 'Email',
+                            obscureText: false),
                         SizedBox(height: context.width(30)),
                         AuthTextField(
+                          controller: password,
                           hintText: 'Password',
                           isThisForPassword: true,
                           obscureText: ref.watch(loginEyeProvider),
@@ -112,22 +122,37 @@ class Login extends ConsumerWidget {
                           ),
                         ),
                         SizedBox(height: context.width(92)),
-                        Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.sizeOf(context).width,
-                          height: context.width(45),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: const Color(0xFF1B1B56),
-                          ),
-                          margin: EdgeInsets.only(bottom: context.width(7)),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontFamily: 'inter',
-                              fontWeight: FontWeight.w900,
-                              fontSize: context.width(15),
-                              color: Colors.white,
+                        InkWell(
+                          onTap: () async {
+                            try {
+                              await ref
+                                  .read(authServiceProvider)
+                                  .login(email.text, password.text)
+                                  .then((value) => Navigator.pop(context));
+                            } on FirebaseAuthException catch (e) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('${e.message}')));
+                              }
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.sizeOf(context).width,
+                            height: context.width(45),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: const Color(0xFF1B1B56),
+                            ),
+                            margin: EdgeInsets.only(bottom: context.width(7)),
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                fontFamily: 'inter',
+                                fontWeight: FontWeight.w900,
+                                fontSize: context.width(15),
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -143,11 +168,7 @@ class Login extends ConsumerWidget {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Signup(),
-                                    )),
+                                onTap: ontapToSignupage,
                                 child: Text(
                                   'Sign up',
                                   style: TextStyle(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
+import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
 
 import '../provider/providers.dart';
 
@@ -16,7 +17,9 @@ class Home extends ConsumerWidget {
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                ref.read(authServiceProvider).logout();
+              },
               icon: const Icon(
                 CupertinoIcons.profile_circled,
                 color: Colors.black,
@@ -91,11 +94,8 @@ class Home extends ConsumerWidget {
                     height: context.width(22),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(
-                        width: context.width(10),
-                      ),
                       InkWell(
                         onTap: () {
                           ref.read(brandContainerProvider.notifier).state = 0;
@@ -171,127 +171,133 @@ class Home extends ConsumerWidget {
                   SizedBox(
                     height: context.width(22),
                   ),
-                  Row(
+                  Column(
                     children: [
-                      Text(
-                        "Best selling",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: context.width(20),
-                            fontWeight: FontWeight.w500),
+                      Row(
+                        children: [
+                          Text(
+                            "Best selling",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: context.width(20),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            width: context.width(170),
+                          ),
+                          Text(
+                            "See all",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: context.width(
+                                  18,
+                                ),
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        width: context.width(170),
-                      ),
-                      Text(
-                        "See all",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: context.width(
-                              18,
-                            ),
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: context.width(
-                      10,
-                    ),
-                  ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    itemCount: 4,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: context.width(10),
-                      crossAxisSpacing: context.width(10),
-                      childAspectRatio: 2 / 2.8,
-                      crossAxisCount: 2,
-                    ),
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: context.width(200),
-                          width: context.width(165),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 192, 192, 192),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: context.width(6),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: context.width(70),
-                                ),
-                                child: Container(
-                                  height: context.width(20),
-                                  width: context.width(50),
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 255, 41, 41),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "30%",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: context.width(10),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color:
-                                        const Color.fromARGB(255, 61, 28, 28),
-                                    image: const DecorationImage(
-                                        image: NetworkImage(
-                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvFYI94-hSyTZpg5-3nXAnklcobZ-vLF3seQ&usqp=CAU"),
-                                        fit: BoxFit.cover)),
-                                height: context.width(150),
-                                width: context.width(140),
-                              ),
-                            ],
-                          ),
+                        height: context.width(
+                          10,
                         ),
-                        Row(
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemCount: 4,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: context.width(10),
+                          crossAxisSpacing: context.width(10),
+                          childAspectRatio: 2 / 2.8,
+                          crossAxisCount: 2,
+                        ),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Prada saddle bag",
+                            Container(
+                              height: context.width(200),
+                              width: context.width(165),
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 192, 192, 192),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: context.width(6),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: context.width(70),
+                                    ),
+                                    child: Container(
+                                      height: context.width(20),
+                                      width: context.width(50),
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 255, 41, 41),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "30%",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: context.width(10),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color.fromARGB(
+                                            255, 61, 28, 28),
+                                        image: const DecorationImage(
+                                            image: NetworkImage(
+                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvFYI94-hSyTZpg5-3nXAnklcobZ-vLF3seQ&usqp=CAU"),
+                                            fit: BoxFit.cover)),
+                                    height: context.width(150),
+                                    width: context.width(140),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Prada saddle bag",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: context.width(16)),
+                                ),
+                                SizedBox(
+                                  width: context.width(10),
+                                ),
+                                const Icon(Icons.favorite_border),
+                              ],
+                            ),
+                            const Text(
+                              textAlign: TextAlign.start,
+                              "\$120,000",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: context.width(16)),
+                                  fontSize: 16),
                             ),
-                            SizedBox(
-                              width: context.width(10),
-                            ),
-                            const Icon(Icons.favorite_border),
                           ],
                         ),
-                        const Text(
-                          textAlign: TextAlign.start,
-                          "\$120,000",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   // SizedBox(
                   //   height: context.height(5),

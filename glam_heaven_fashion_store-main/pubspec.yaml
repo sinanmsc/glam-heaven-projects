@@ -17,6 +17,8 @@ dependencies:
   swipeable_button_view: ^0.0.2
   flutter_rating_stars: ^1.0.3+4
   flutter_rating_bar: ^4.0.1
+  firebase_core: ^2.21.0
+  firebase_auth: ^4.12.1
 
 
 
