@@ -111,7 +111,6 @@ class Login extends ConsumerWidget {
                                 !ref.read(loginEyeProvider.notifier).state;
                           },
                         ),
-                        SizedBox(height: context.width(10)),
                         Text(
                           'Forgot Password?',
                           style: TextStyle(
@@ -121,7 +120,50 @@ class Login extends ConsumerWidget {
                             color: const Color(0xFF1B1B56),
                           ),
                         ),
-                        SizedBox(height: context.width(92)),
+                        SizedBox(
+                          height: context.width(25),
+                        ),
+                        Center(
+                          child: InkWell(
+                            onTap: () async {
+                              await ref
+                                  .watch(authServiceProvider)
+                                  .signInWithGoogle()
+                                  .then((value) => Navigator.pop(context));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(context.width(7)),
+                              decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 2,
+                                        blurStyle: BlurStyle.outer,
+                                        offset: Offset(0, 0))
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.circular(context.width(10))),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    'assets/google.png',
+                                    width: 35,
+                                  ),
+                                  SizedBox(width: context.width(10)),
+                                  const Text(
+                                    'Sign up with Google',
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: context.width(10)),
+                        SizedBox(height: context.width(25)),
                         InkWell(
                           onTap: () async {
                             try {

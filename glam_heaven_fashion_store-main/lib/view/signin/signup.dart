@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/auth_textfield.dart';
-import 'package:glam_heaven_fashion_store/components/home_bottomnavigation.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_ui_provider.dart';
@@ -109,6 +107,44 @@ class Signup extends ConsumerWidget {
                           },
                         ),
                         SizedBox(height: context.width(15)),
+                        InkWell(
+                          onTap: () async {
+                            await ref
+                                .watch(authServiceProvider)
+                                .signInWithGoogle()
+                                .then((value) => Navigator.pop(context));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(context.width(7)),
+                            decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black,
+                                      blurRadius: 2,
+                                      blurStyle: BlurStyle.outer,
+                                      offset: Offset(0, 0))
+                                ],
+                                borderRadius:
+                                    BorderRadius.circular(context.width(10))),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  'assets/google.png',
+                                  width: 35,
+                                ),
+                                SizedBox(width: context.width(10)),
+                                const Text(
+                                  'Sign up with Google',
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: context.width(15)),
                         SizedBox(
                           width: context.width(300),
                           child: RichText(
@@ -142,56 +178,47 @@ class Signup extends ConsumerWidget {
                           ),
                         ),
                         SizedBox(
-                          height: context.height(61),
+                          height: context.height(10),
                         ),
                         InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BottomNavi(),
-                                ));
-                          },
-                          child: InkWell(
-                            onTap: () async {
-                              if (name.text.isEmpty &&
-                                  confirmPassword.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'Please fill the blank fields')));
-                              } else {
-                                try {
-                                  await ref
-                                      .read(authServiceProvider)
-                                      .signup(email.text, password.text)
-                                      .then((value) => Navigator.pop(context));
-                                } on FirebaseAuthException catch (e) {
-                                  if (context.mounted) {
-                                    log('$e');
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('${e.message}')));
-                                  }
+                          onTap: () async {
+                            if (name.text.isEmpty &&
+                                confirmPassword.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Please fill the blank fields')));
+                            } else {
+                              try {
+                                await ref
+                                    .read(authServiceProvider)
+                                    .signup(email.text, password.text)
+                                    .then((value) => Navigator.pop(context));
+                              } on FirebaseAuthException catch (e) {
+                                if (context.mounted) {
+                                  log('$e');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('${e.message}')));
                                 }
                               }
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.sizeOf(context).width,
-                              height: context.width(45),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: const Color(0xFF1B1B56),
-                              ),
-                              margin: EdgeInsets.only(bottom: context.width(5)),
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(
-                                  fontFamily: 'inter',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: context.width(15),
-                                  color: Colors.white,
-                                ),
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.sizeOf(context).width,
+                            height: context.width(45),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: const Color(0xFF1B1B56),
+                            ),
+                            margin: EdgeInsets.only(bottom: context.width(5)),
+                            child: Text(
+                              'Sign up',
+                              style: TextStyle(
+                                fontFamily: 'inter',
+                                fontWeight: FontWeight.w900,
+                                fontSize: context.width(15),
+                                color: Colors.white,
                               ),
                             ),
                           ),

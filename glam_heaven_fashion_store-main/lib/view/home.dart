@@ -1,36 +1,52 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../provider/providers.dart';
 
 class Home extends ConsumerWidget {
-  const Home({super.key});
+  final User? userData;
+  const Home({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
+        foregroundColor: Colors.black,
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        actions: [
-          IconButton(
-              onPressed: () {
-                ref.read(authServiceProvider).logout();
-              },
-              icon: const Icon(
-                CupertinoIcons.profile_circled,
-                color: Colors.black,
-              ))
-        ],
-        leading: SizedBox(
-          width: context.width(30),
-        ),
+        leading: IconButton(
+            onPressed: () {
+              scaffoldKey.currentState?.openDrawer();
+            },
+            icon: const Icon(Icons.person)),
         title: const Text(
           "Glame heaven",
           style: TextStyle(color: Colors.black),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  border: Border.all(
+                    width: context.width(2),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -97,8 +113,10 @@ class Home extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           ref.read(brandContainerProvider.notifier).state = 0;
+                          ref.read(authServiceProvider).logout();
+                          await GoogleSignIn().signOut();
                         },
                         child: BrandnameContainer(
                           brandname: "ARMANI",
@@ -353,7 +371,7 @@ class Home extends ConsumerWidget {
                   ),
                   SizedBox(height: context.height(5)),
                   SizedBox(
-                    height: context.height(260),
+                    height: context.height(265),
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -456,7 +474,7 @@ class Home extends ConsumerWidget {
                     height: context.width(10),
                   ),
                   SizedBox(
-                    height: context.height(260),
+                    height: context.height(265),
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
