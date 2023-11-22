@@ -17,8 +17,10 @@ class AuthChecker extends ConsumerWidget {
             if (data == null) {
               return const GetStart();
             }
+            // log("data:$data");
+
             return BottomNavi(
-              userData: data,
+              uid: data.uid,
             );
           },
           error: (error, stackTrace) => Center(

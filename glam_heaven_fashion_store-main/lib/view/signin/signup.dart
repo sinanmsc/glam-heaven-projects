@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/auth_textfield.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
+import 'package:glam_heaven_fashion_store/model/user_model.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_ui_provider.dart';
+import 'package:glam_heaven_fashion_store/provider/firestore_provider.dart';
 
 class Signup extends ConsumerWidget {
   final void Function()? ontapToLoginpage;
@@ -75,7 +77,7 @@ class Signup extends ConsumerWidget {
                       children: [
                         AuthTextField(
                             controller: name,
-                            hintText: 'Last Name',
+                            hintText: 'Name',
                             obscureText: false),
                         SizedBox(height: context.width(15)),
                         AuthTextField(
@@ -109,10 +111,20 @@ class Signup extends ConsumerWidget {
                         SizedBox(height: context.width(15)),
                         InkWell(
                           onTap: () async {
-                            await ref
+                            final UserCredential userCredential = await ref
                                 .watch(authServiceProvider)
-                                .signInWithGoogle()
-                                .then((value) => Navigator.pop(context));
+                                .signInWithGoogle();
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
+                            if (userCredential.user != null) {
+                              ref.read(addUserProvider(UserModel(
+                                email: userCredential.user!.email!,
+                                id: userCredential.user!.uid,
+                                imageUrl: userCredential.user!.photoURL!,
+                                name: userCredential.user!.displayName!,
+                              )));
+                            }
                           },
                           child: Container(
                             padding: EdgeInsets.all(context.width(7)),
@@ -190,11 +202,27 @@ class Signup extends ConsumerWidget {
                                           'Please fill the blank fields')));
                             } else {
                               try {
-                                await ref
+                                final UserCredential userCredential = await ref
                                     .read(authServiceProvider)
-                                    .signup(email.text, password.text)
-                                    .then((value) => Navigator.pop(context));
+                                    .signup(email.text, password.text);
+                                if (context.mounted) {
+                                  Navigator.pop(context);
+                                }
+                                if (userCredential.user != null) {
+                                  ref.read(addUserProvider(UserModel(
+                                    email: userCredential.user!.email!,
+                                    id: userCredential.user!.uid,
+                                    imageUrl: userCredential.user?.photoURL,
+                                    name: name.text,
+                                  )));
+                                }
                               } on FirebaseAuthException catch (e) {
+                                if (context.mounted) {
+                                  log('$e');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('${e.message}')));
+                                }
+                              } on FirebaseException catch (e) {
                                 if (context.mounted) {
                                   log('$e');
                                   ScaffoldMessenger.of(context).showSnackBar(

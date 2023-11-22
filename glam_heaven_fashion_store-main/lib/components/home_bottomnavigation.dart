@@ -1,12 +1,11 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glam_heaven_fashion_store/view/home.dart';
 
 class BottomNavi extends StatelessWidget {
-  final User? userData;
-  BottomNavi({super.key, required this.userData});
+  final String uid;
+  BottomNavi({super.key, required this.uid});
 
   final PageController controller = PageController();
   final NotchBottomBarController _controller = NotchBottomBarController();
@@ -17,7 +16,7 @@ class BottomNavi extends StatelessWidget {
       body: PageView(
         controller: controller,
         children: [
-          Home(userData: userData),
+          Home(uid: uid),
           // Center(child: Text("1")),
           const Center(child: Text("2")),
           const Center(child: Text("3")),

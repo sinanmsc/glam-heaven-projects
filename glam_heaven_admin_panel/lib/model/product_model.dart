@@ -78,10 +78,3 @@ class ProductModelClass {
     };
   }
 }
-
-enum Dirction {
-  south,
-  north,
-  west,
-  east;
-}
