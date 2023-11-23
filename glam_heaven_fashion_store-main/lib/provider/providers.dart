@@ -19,3 +19,8 @@ final counterprovider = StateProvider<int>((ref) {
 final filterProvider = StateProvider<int>((ref) {
   return 0;
 });
+
+//Main pageView index provider
+final currentPageProvider = StateProvider<int>((ref) {
+  return 0;
+});

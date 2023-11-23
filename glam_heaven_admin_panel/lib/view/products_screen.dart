@@ -104,7 +104,7 @@ class ProductsScreen extends ConsumerWidget {
                     children: [
                       const Text('Category'),
                       SizedBox(width: context.width(15)),
-                      DropdownButton<String>(                        
+                      DropdownButton<String>(
                         value: ref.watch(categoryProvider),
                         icon: const Icon(Icons.arrow_drop_down_sharp),
                         underline: const SizedBox(),
@@ -152,7 +152,9 @@ class ProductsScreen extends ConsumerWidget {
                                 ref
                                     .read(imageExtensionProvider.notifier)
                                     .state = pickedImage.name.split('.').last;
-                                ref.read(webImageProvider.notifier).state = im;
+                                ref
+                                    .read(webProductImageProvider.notifier)
+                                    .state = im;
                               }
                             } catch (e) {
                               Text(e.toString());
@@ -161,12 +163,13 @@ class ProductsScreen extends ConsumerWidget {
                         },
                         child: Container(
                             padding: EdgeInsets.all(context.width(10)),
-                            child: ref.watch(webImageProvider) == null
+                            child: ref.watch(webProductImageProvider) == null
                                 ? Image.asset(
                                     'asset/maxresdefault.jpg',
                                     width: context.width(600),
                                   )
-                                : Image.memory(ref.watch(webImageProvider)!)),
+                                : Image.memory(
+                                    ref.watch(webProductImageProvider)!)),
                       ),
                     ],
                   ),
@@ -216,13 +219,12 @@ class ProductsScreen extends ConsumerWidget {
                   onPressed: () async {
                     if (kIsWeb) {
                       try {
-                        final url = await ProductStorage.uploadImage(
-                          ref.watch(webImageProvider)!,
+                        final url = await ProductStorage.uploadProductImage(
+                          ref.watch(webProductImageProvider)!,
                           DateTime.now().toString(),
                           ref.watch(imageExtensionProvider)!,
                         );
                         log(url);
-
                         ref.read(
                           addProductProvider(
                             ProductModelClass(
@@ -263,7 +265,7 @@ class ProductsScreen extends ConsumerWidget {
                     discription.clear();
                     brand.clear();
                     itemCount.clear();
-                    ref.read(webImageProvider.notifier).state = null;
+                    ref.read(webProductImageProvider.notifier).state = null;
                   },
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.pink)),

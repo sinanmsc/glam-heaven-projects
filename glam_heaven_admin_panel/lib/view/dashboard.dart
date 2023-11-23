@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_admin_panel/providers/dashboard_providers.dart';
 import 'package:glam_heaven_admin_panel/view/added_products.dart';
-import 'package:glam_heaven_admin_panel/view/banner_screen.dart';
+import 'package:glam_heaven_admin_panel/view/add_poster_screen.dart';
 import 'package:glam_heaven_admin_panel/view/home_screen.dart';
 import 'package:glam_heaven_admin_panel/view/products_screen.dart';
 
@@ -11,7 +11,7 @@ class DashBoard extends ConsumerWidget {
 
   final screens = [
     const HomeScreen(),
-    const BannerScreen(),
+     AddPosterScreen(),
     ProductsScreen(),
     const AddedProducts()
   ];
@@ -49,7 +49,7 @@ class DashBoard extends ConsumerWidget {
                   },
                   hoverColor: Colors.grey[200]!.withOpacity(0.3),
                   leading: const Icon(Icons.home),
-                  title: const Text("Banners"),
+                  title: const Text("Posters"),
                 ),
                 ListTile(
                   onTap: () {
@@ -70,9 +70,7 @@ class DashBoard extends ConsumerWidget {
               ],
             ),
           ),
-          Expanded(
-              child: SingleChildScrollView(
-                  child: screens[ref.watch(dashIndexProvider)]))
+          Expanded(child: screens[ref.watch(dashIndexProvider)])
         ],
       ),
     );

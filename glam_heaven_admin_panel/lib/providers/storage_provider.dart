@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -8,10 +7,22 @@ final imagePathProvider = StateProvider<File?>((ref) {
   return null;
 });
 
-final webImageProvider = StateProvider<Uint8List?>((ref) {
+//
+
+final webProductImageProvider = StateProvider<Uint8List?>((ref) {
   return null;
 });
 
 final imageExtensionProvider = StateProvider<String?>((ref) {
-  return null ;
+  return null;
+});
+
+//
+
+final discoverPosterU8Provider = StateProvider<Uint8List?>((ref) {
+  return null;
+});
+
+final discoverExtensionProvider = StateProvider<String?>((ref) {
+  return null;
 });

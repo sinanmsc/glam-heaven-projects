@@ -6,9 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glam_heaven_fashion_store/components/gridview_container.dart';
+import 'package:glam_heaven_fashion_store/components/listview_by_type.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
 import 'package:glam_heaven_fashion_store/provider/firestore_provider.dart';
+import 'package:glam_heaven_fashion_store/provider/storage_provider.dart';
 import 'package:glam_heaven_fashion_store/service/product_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -28,11 +30,11 @@ class Home extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        leading: IconButton(
-            onPressed: () {
+        leading: InkWell(
+            onTap: () {
               scaffoldKey.currentState?.openDrawer();
             },
-            icon: const Icon(CupertinoIcons.profile_circled)),
+            child: const Icon(CupertinoIcons.profile_circled)),
         title: Stack(
           children: [
             Text(
@@ -188,7 +190,6 @@ class Home extends StatelessWidget {
               ref.watch(readBannerProvider).when(
                     data: (data) {
                       print('object2');
-
                       return CarouselSlider.builder(
                           itemCount: data.docs.length,
                           itemBuilder: (context, index, realIndex) => ClipRRect(
@@ -409,228 +410,10 @@ class Home extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: context.height(22),
+                      height: context.height(30),
                     ),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: const Alignment(-0.95, 0),
-                          child: Text(
-                            "Shirts",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: context.width(22),
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        SizedBox(
-                          height: context.height(265),
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 10),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                  height: context.width(213),
-                                  width: context.width(153),
-                                  decoration: const BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Color.fromARGB(255, 162, 162, 162),
-                                        spreadRadius: 2,
-                                        blurRadius: 3,
-                                        offset: Offset(1, 3),
-                                      )
-                                    ],
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: context.height(10),
-                                      ),
-                                      Center(
-                                        child: Container(
-                                          height: context.height(144),
-                                          width: context.width(134),
-                                          decoration: BoxDecoration(
-                                              image: const DecorationImage(
-                                                  image: NetworkImage(
-                                                      "https://assets.ajio.com/medias/sys_master/root/20230602/Dtgx/64795c65d55b7d0c633c778c/-1117Wx1400H-462323964-white-MODEL.jpg")),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255)),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: context.height(5),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: context.width(10)),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "pattern shirt",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: context.width(12),
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: context.width(8)),
-                                        child: const Row(
-                                          children: [
-                                            Icon(Icons.star_border_sharp),
-                                            Text(
-                                              "4.2",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                right: context.width(10)),
-                                            child: const Text(
-                                              "RS 1200",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ));
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                width: context.width(10),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: context.height(265),
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: 3,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
-                        itemBuilder: (context, index) {
-                          return Container(
-                              height: context.width(213),
-                              width: context.width(153),
-                              decoration: const BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromARGB(255, 126, 126, 126),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
-                                    offset: Offset(1, 3),
-                                  )
-                                ],
-                                color: Color.fromARGB(255, 255, 255, 255),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: context.height(10),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                      height: context.height(144),
-                                      width: context.width(134),
-                                      decoration: BoxDecoration(
-                                          image: const DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://assets.ajio.com/medias/sys_master/root/20230602/Dtgx/64795c65d55b7d0c633c778c/-1117Wx1400H-462323964-white-MODEL.jpg")),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: context.height(5),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: context.width(10)),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "pattern shirt",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: context.width(12),
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: context.width(8)),
-                                    child: const Row(
-                                      children: [
-                                        Icon(Icons.star_border_sharp),
-                                        Text(
-                                          "4.2",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            right: context.width(10)),
-                                        child: const Text(
-                                          "RS 1200",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ));
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            width: context.width(10),
-                          );
-                        },
-                      ),
-                    ),
+                    const ListViewBYType(where: 'type', isEqualTo: 'Shirt'),
+                    const ListViewBYType(where: 'type', isEqualTo: 'Saree'),
                     SizedBox(
                       height: context.width(10),
                     ),
@@ -647,22 +430,31 @@ class Home extends StatelessWidget {
                     SizedBox(
                       height: context.width(10),
                     ),
-                    Container(
-                      height: context.width(200),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: Colors.amber,
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"),
-                              fit: BoxFit.cover)),
-                    )
                   ],
                 ),
               ),
               SizedBox(
-                height: context.width(20),
+                // height: context.width(200),
+                width: MediaQuery.of(context).size.width,
+                child: ref.watch(discoverPosterImageProvider).when(
+                      data: (data) {
+                        return CachedNetworkImage(
+                          imageUrl: data,
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                      error: (error, stackTrace) => Center(
+                        child: Text('$error'),
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
               ),
+             
             ],
           );
         }),

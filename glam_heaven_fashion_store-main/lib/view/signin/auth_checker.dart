@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glam_heaven_fashion_store/components/home_bottomnavigation.dart';
+import 'package:glam_heaven_fashion_store/view/home_bottomnavigation.dart';
 import 'package:glam_heaven_fashion_store/provider/auth_service_provider.dart';
 import 'package:glam_heaven_fashion_store/view/get_start.dart';
 
