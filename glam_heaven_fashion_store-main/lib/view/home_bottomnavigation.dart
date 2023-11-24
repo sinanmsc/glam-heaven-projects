@@ -32,9 +32,9 @@ class BottomNavi extends ConsumerWidget {
           pageController.animateToPage(value,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.black,
+        selectedItemColor: const Color.fromARGB(255, 248, 145, 145),
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.grey[350],
         type: BottomNavigationBarType.fixed,
         elevation: 10,
         iconSize: 30,

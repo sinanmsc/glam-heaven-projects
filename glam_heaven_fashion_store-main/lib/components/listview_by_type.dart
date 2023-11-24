@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:glam_heaven_fashion_store/components/listview_container.dart';
 import 'package:glam_heaven_fashion_store/extensions/responsive_extension.dart';
 import 'package:glam_heaven_fashion_store/service/product_firestore.dart';
+import 'package:glam_heaven_fashion_store/view/details.dart';
 
 class ListViewBYType extends StatelessWidget {
- final String where;
- final String isEqualTo;
-  const ListViewBYType({super.key,required this.where,required this.isEqualTo});
+  final String where;
+  final String isEqualTo;
+  const ListViewBYType(
+      {super.key, required this.where, required this.isEqualTo});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +40,21 @@ class ListViewBYType extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 itemBuilder: (context, index) {
-                  return ListviewContainer(
-                      brand: data.docs[index].data()['brand'],
-                      imageUrl: data.docs[index].data()['image'],
-                      name: data.docs[index].data()['name'],
-                      price: data.docs[index].data()['price'].toString());
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Details(data: data.docs[index]),
+                          ));
+                    },
+                    child: ListviewContainer(
+                        brand: data.docs[index].data()['brand'],
+                        imageUrl: data.docs[index].data()['image'],
+                        name: data.docs[index].data()['name'],
+                        price: data.docs[index].data()['price'].toString()),
+                  );
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(

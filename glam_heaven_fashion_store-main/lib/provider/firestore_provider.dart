@@ -17,7 +17,9 @@ final readUserProvider =
   return FirestoreService.readUserData(uid);
 });
 
-final profileUrlProvider = StateProvider<String?>((ref) {
+final profileUrlProvider = StateProvider<String?>((ref) => null);
+
+final userNameShortProvider = StateProvider<String?>((ref) {
   return null;
 });
 
